@@ -29,10 +29,6 @@ ChessPieces& ChessPieces::operator=(const ChessPieces& other)
 	return *this;
 }
 
-void ChessPieces::Shutdown()
-{
-}
-
 unsigned int ChessPieces::GetType() const
 {
 	// TODO: 여기에 반환 구문을 삽입합니다.

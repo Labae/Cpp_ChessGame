@@ -31,8 +31,6 @@ public:
 	ChessPieces(const ChessPieces& other);
 	ChessPieces& operator= (const ChessPieces& other);
 
-	void Shutdown();
-
 	void Select();
 	void UnSelect();
 

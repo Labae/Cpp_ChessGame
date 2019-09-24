@@ -7,6 +7,7 @@ ChessManager::ChessManager()
 	m_Input = 0;
 	m_Board = 0;
 	m_Team = ChessPieces::White;
+	m_GameOver = false;
 }
 
 ChessManager::ChessManager(const ChessManager& other)
@@ -15,6 +16,7 @@ ChessManager::ChessManager(const ChessManager& other)
 	this->m_Input = other.m_Input;
 	this->m_Board = other.m_Board;
 	this->m_Team = other.m_Team;
+	this->m_GameOver = other.m_GameOver;
 }
 
 bool ChessManager::Initialize()
@@ -64,12 +66,18 @@ bool ChessManager::Run()
 {
 	bool result;
 
-	result = m_ChessGraphics->Render(m_Board, m_Input->GetQueue(), m_Input->GetSelectedPiece(), m_Team);
+	m_GameOver = m_Input->IsKillKing();
+	result = m_ChessGraphics->Render(m_Board, m_Input->GetQueue(), m_Input->GetSelectedPiece(), m_Team, m_GameOver);
 	if (!result)
 	{
 		return false;
 	}
 
+
+	if (m_GameOver)
+	{
+		return false;
+	}
 	m_Input->Input(m_Board, m_Team);
 
 	return true;

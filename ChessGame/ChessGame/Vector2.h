@@ -24,6 +24,7 @@ public:
 	void SetY(T y);
 	void SetXY(T x, T y);
 
+
 private:
 	T m_X;
 	T m_Y;

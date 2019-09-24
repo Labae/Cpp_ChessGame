@@ -21,5 +21,6 @@ private:
 	ChessBoard* m_Board;
 	InputManager* m_Input;
 	int m_Team;
+	bool m_GameOver;
 };
 

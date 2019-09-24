@@ -14,14 +14,14 @@ bool ChessGraphics::Initialize()
 }
 
 /// TODO : 2중 배열로 해서 이것저것 수정해야 할듯.
-bool ChessGraphics::Render(ChessBoard* board, Queue<Vector2<int>>* inputLog, ChessPieces* selectedPiece, const int& team)
+bool ChessGraphics::Render(ChessBoard* board, Queue<Vector2<int>>* inputLog, ChessPieces* selectedPiece, const int& team, const bool& gameover)
 {
 	using namespace std;
 
 	system("cls");
 
 	char* szBottom[] = { "A ", "B ", "C ", "D ", "E ", "F ", "G ", "H " };
-	char* szLeft[] = { "1","2","3","4","5","6","7","8" };
+	char* szLeft[] = { "8","7","6","5","4","3","2","1" };
 	ChessPieces* piece = 0;
 
 	// 커서 좌표.
@@ -146,24 +146,13 @@ bool ChessGraphics::Render(ChessBoard* board, Queue<Vector2<int>>* inputLog, Che
 
 	}
 
-	RenderInformation(team);
+	RenderInformation(team, gameover);
 
 	return true;
 }
 
 void ChessGraphics::Shutdown()
 {
-	if (m_RenderTarget)
-	{
-		for (int i = 0; i < 9; i++)
-		{
-			for (int j = 0; j < 9; j++)
-			{
-				delete m_RenderTarget[i][j];
-				m_RenderTarget[i][j] = 0;
-			}
-		}
-	}
 	return;
 }
 
@@ -208,7 +197,7 @@ void ChessGraphics::ShowPath(ChessBoard* board, const ChessPieces* piece)
 	}
 }
 
-void ChessGraphics::RenderInformation(const int& team)
+void ChessGraphics::RenderInformation(const int& team, const bool& gameover)
 {
 	using namespace std;
 
@@ -228,4 +217,14 @@ void ChessGraphics::RenderInformation(const int& team)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), turnColor);
 
 	cout << teamText;
+	cout << "\n";
+
+	if (gameover)
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
+		cout << "WINNER : ";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), turnColor);
+		cout << teamText;
+		cout << "\n";
+	}
 }

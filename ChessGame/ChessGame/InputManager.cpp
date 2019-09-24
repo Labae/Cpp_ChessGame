@@ -3,7 +3,7 @@
 int InputManager::m_kPosX = 0;
 int InputManager::m_kPosY = 0;
 
-InputManager::InputManager() : m_InputPositionLog(0), m_Selected(false), m_SelectedPiece(0)
+InputManager::InputManager() : m_InputPositionLog(0), m_Selected(false), m_SelectedPiece(0), m_KillKing(false)
 {
 }
 
@@ -24,6 +24,7 @@ void InputManager::Shutdown()
 {
 	if (m_InputPositionLog)
 	{
+		m_InputPositionLog->Shutdown();
 		delete m_InputPositionLog;
 		m_InputPositionLog = 0;
 	}
@@ -135,7 +136,13 @@ void InputManager::Input(ChessBoard* board, int& team)
 								{
 									if (paths[i].GetX() == m_kPosX && paths[i].GetY() == m_kPosY)
 									{
-										board->m_Board[m_SelectedPiece->GetPosition().GetX()][m_SelectedPiece->GetPosition().GetY()] = nullptr;
+										ChessPieces* piece = board->m_Board[m_SelectedPiece->GetPosition().GetX()][m_SelectedPiece->GetPosition().GetY()];
+										if (piece->GetTeam() == ChessPieces::King)
+										{
+											m_KillKing = true;
+										}
+
+										piece = nullptr;
 										m_SelectedPiece->Move(m_kPosX, m_kPosY);
 										board->m_Board[m_SelectedPiece->GetPosition().GetX()][m_SelectedPiece->GetPosition().GetY()] = m_SelectedPiece;
 									}
@@ -235,6 +242,11 @@ int InputManager::GetPosY()
 bool InputManager::IsSelected()
 {
 	return m_Selected;
+}
+
+bool InputManager::IsKillKing()
+{
+	return m_KillKing;
 }
 
 Queue<Vector2<int>>* InputManager::GetQueue()

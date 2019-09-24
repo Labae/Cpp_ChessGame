@@ -71,7 +71,6 @@ void ChessBoard::Shutdown()
 		{
 			for (unsigned int j = 0; j < 8; j++)
 			{
-				m_Board[i][j]->Shutdown();
 				delete m_Board[i][j];
 				m_Board[i][j] = 0;
 			}

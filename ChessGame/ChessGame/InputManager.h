@@ -20,6 +20,7 @@ public:
 	static int GetPosX();
 	static int GetPosY();
 	bool IsSelected();
+	bool IsKillKing();
 	Queue<Vector2<int>>* GetQueue();
 	ChessPieces* GetSelectedPiece();
 
@@ -31,4 +32,5 @@ private:
 	Queue<Vector2<int>>* m_InputPositionLog;
 	bool m_Selected;
 	ChessPieces* m_SelectedPiece;
+	bool m_KillKing;
 };

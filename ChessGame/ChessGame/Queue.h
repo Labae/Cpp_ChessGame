@@ -14,6 +14,8 @@ public:
 	~Queue();
 	Queue(const Queue<T>& input);
 
+	void Shutdown();
+
 	bool operator== (const Queue<T>& other) const;
 	bool operator!= (const Queue<T>& other) const;
 
@@ -37,6 +39,16 @@ inline Queue<T>::Queue() : m_HeadElement(0), m_Count(0)
 template<typename T>
 inline Queue<T>::~Queue()
 {
+}
+
+template<typename T>
+inline Queue<T>::Queue(const Queue<T>& input) : m_HeadElement(input.m_HeadElement), m_Count(input.m_Count)
+{
+}
+
+template<typename T>
+inline void Queue<T>::Shutdown()
+{
 	if (m_HeadElement)
 	{
 		Element<T>* pt = m_HeadElement;
@@ -53,11 +65,6 @@ inline Queue<T>::~Queue()
 		delete m_HeadElement;
 		m_HeadElement = 0;
 	}
-}
-
-template<typename T>
-inline Queue<T>::Queue(const Queue<T>& input) : m_HeadElement(input.m_HeadElement), m_Count(input.m_Count)
-{
 }
 
 template<typename T>

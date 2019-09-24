@@ -14,7 +14,10 @@ int main()
 	bool result = chessManager->Initialize();
 	if (result)
 	{
-		while (chessManager->Run());
+		while (chessManager->Run())
+		{
+
+		}
 	}
 
 	chessManager->Shutdown();
